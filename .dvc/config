@@ -1,2 +1,5 @@
 [core]
     analytics = false
+    remote = storage
+['remote "storage"']
+    url = gs://music-genre-clustering
