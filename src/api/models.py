@@ -22,3 +22,7 @@ class ContinueTraining(BaseModel):
     model_name: str
     train_input: list[str]
     new_model_name: str
+
+class PredictionInput(BaseModel):
+    model_name: str
+    input_data: list[str]

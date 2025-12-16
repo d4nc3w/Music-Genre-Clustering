@@ -11,3 +11,8 @@ async def root():
 async def continue_training(training_model: ContinueTraining):
     continue_train_controller(training_model)
     return {"message": "Model successfully created"}
+
+@app.post("/predict")
+async def predict(input_data: PredictionInput):
+    predictions = predict_controller(input_data)
+    return {"predictions": predictions}
