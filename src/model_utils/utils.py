@@ -2,11 +2,12 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 import joblib
+import os
 
 FEATURES = ["Beats Per Minute (BPM)", "Loudness (dB)", "Liveness",
             "Valence", "Acousticness", "Speechiness"]
 
-def train_model(file_path: str, model_name: str):
+def train_model(file_path: str, model_directory_path: str, model_name: str):
     # Load dataset
     data = pd.read_csv(file_path)
     # Drop the 'Index' column as it is not useful
@@ -21,7 +22,7 @@ def train_model(file_path: str, model_name: str):
     kmeans = KMeans(n_clusters=10, random_state=42)
     kmeans.fit(data_scaled)
 
-    joblib.dump(kmeans, f"{file_path}/{model_name}.joblib")
+    joblib.dump(kmeans, f"{model_directory_path}/{model_name}.joblib")
 
 def predict_entry(data_path: str, model_dir: str, model_name: str):
     data = pd.read_csv(data_path)
@@ -30,7 +31,7 @@ def predict_entry(data_path: str, model_dir: str, model_name: str):
 
     check_data(data)
 
-    data_features = data[features]
+    data_features = data[FEATURES]
     scaler = MinMaxScaler()
     data_scaled = scaler.fit_transform(data_features)
 
