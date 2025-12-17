@@ -1,5 +1,4 @@
 .ipynb_checkpoints
-models/
 .idea
 __pycache__/
 *.pyc
