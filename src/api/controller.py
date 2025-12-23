@@ -2,20 +2,35 @@ import os
 from src.api.models import ContinueTraining, PredictionInput
 from pathlib import Path
 from src.model_utils.utils import train_model, predict_entry
+from pandas import DataFrame
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 DATA_DIR = f"{BASE_DIR}/data"
 MODELS_DIR = f"{BASE_DIR}/models"
 FEATURES = "Index,Title,Artist,Top Genre,Year,Beats Per Minute (BPM),Energy,Danceability,Loudness (dB),Liveness,Valence,Length (Duration),Acousticness,Speechiness,Popularity"
+COLUMN_MAP = {
+    "index": "Index",
+    "title": "Title",
+    "artist": "Artist",
+    "top_genre": "Top Genre",
+    "year": "Year",
+    "beats_per_minute": "Beats Per Minute (BPM)",
+    "energy": "Energy",
+    "danceability": "Danceability",
+    "loudness": "Loudness (dB)",
+    "liveness": "Liveness",
+    "valence": "Valence",
+    "length": "Length (Duration)",
+    "acousticness": "Acousticness",
+    "speechiness": "Speechiness",
+    "popularity": "Popularity",
+}
 
 def continue_train_controller(training_model: ContinueTraining):
-    with open(f"{DATA_DIR}/tmp.csv", 'w') as file:
-        file.write(FEATURES + "\n")
-        for line in training_model.train_input:
-            file.write(line + "\n")
+    df = DataFrame([item.model_dump() for item in training_model.train_input])
+    df.rename(columns=COLUMN_MAP, inplace=True)
 
-    train_model(f"{DATA_DIR}/tmp.csv", MODELS_DIR, training_model.new_model_name)
-    os.remove(f"{DATA_DIR}/tmp.csv")
+    return train_model(df, MODELS_DIR, training_model.new_model_name)
 
 def predict_controller(prediction_input: PredictionInput):
     tmp_filename = f"tmp_predict_{prediction_input.model_name}.csv"
