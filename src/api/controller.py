@@ -33,14 +33,8 @@ def continue_train_controller(training_model: ContinueTraining):
     return train_model(df, MODELS_DIR, training_model.new_model_name)
 
 def predict_controller(prediction_input: PredictionInput):
-    tmp_filename = f"tmp_predict_{prediction_input.model_name}.csv"
-    tmp_file_path = f"{DATA_DIR}/{tmp_filename}"
-    with open(tmp_file_path, 'w') as file:
-        file.write(FEATURES + "\n")
-        for line in prediction_input.input_data:
-            file.write(line + "\n")
+    df = DataFrame([item.model_dump() for item in prediction_input.input_data])
+    df.rename(columns=COLUMN_MAP, inplace=True)
 
-    predictions = predict_entry(tmp_file_path, MODELS_DIR, prediction_input.model_name)
-    if os.path.exists(tmp_file_path):
-        os.remove(tmp_file_path)
+    predictions = predict_entry(df, MODELS_DIR, prediction_input.model_name)
     return predictions
