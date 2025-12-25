@@ -30,8 +30,7 @@ def train_model(data: pd.DataFrame, model_directory_path: str, model_name: str):
     joblib.dump(kmeans, f"{model_directory_path}/{model_name}.joblib")
     return quality_metrics
 
-def predict_entry(data_path: str, model_dir: str, model_name: str):
-    data = pd.read_csv(data_path)
+def predict_entry(data: pd.DataFrame, model_dir: str, model_name: str):
     if 'Index' in data.columns:
         data = data.drop('Index', axis=1)
 
