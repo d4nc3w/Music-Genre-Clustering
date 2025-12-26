@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from httpcore import Request
 
 from src.api.models import ContinueTraining
-from src.api.controller import continue_train_controller
+from src.api.controller import continue_train_controller, list_models_controller
 from src.api.models import PredictionInput
 from src.api.controller import predict_controller
 from fastapi.responses import JSONResponse
@@ -34,3 +34,7 @@ async def continue_training(training_model: ContinueTraining):
 async def predict(input_data: PredictionInput):
     predictions = predict_controller(input_data)
     return {"predictions": predictions}
+
+@app.get("/models", response_model=list[str])
+async def models():
+    return list_models_controller()
