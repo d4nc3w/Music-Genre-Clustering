@@ -1,3 +1,4 @@
+import pathlib
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
@@ -41,12 +42,16 @@ def predict_entry(data: pd.DataFrame, model_dir: str, model_name: str):
     data_scaled = scaler.fit_transform(data_features)
 
     model_path = os.path.join(model_dir, f"{model_name}.joblib")
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Model {model_name} not found in {model_dir}")
 
     kmeans = joblib.load(model_path)
     predictions = kmeans.predict(data_scaled)
     return predictions.tolist()
+
+def list_models(path: pathlib.Path) -> list[str]:
+    if not path.exists():
+        return []
+
+    return sorted([p.stem for p in path.glob("*.joblib")])
 
 def check_data(data: pd.DataFrame):
     missing_cols = [col for col in FEATURES if col not in data.columns]
