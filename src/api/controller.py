@@ -38,3 +38,11 @@ def predict_controller(prediction_input: PredictionInput):
 
     predictions = predict_entry(df, MODELS_DIR, prediction_input.model_name)
     return predictions
+
+def list_models_controller() -> list[str]:
+    models_path = Path(MODELS_DIR)
+
+    if not models_path.exists():
+        return []
+    
+    return sorted([p.stem for p in models_path.glob("*.joblib")])
