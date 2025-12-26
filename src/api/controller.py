@@ -1,7 +1,4 @@
-import os
-
 from fastapi import HTTPException
-
 from src.api.models import ContinueTraining, PredictionInput
 from pathlib import Path
 from src.model_utils.utils import train_model, predict_entry, list_models

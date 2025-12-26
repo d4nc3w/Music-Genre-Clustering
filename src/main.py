@@ -1,7 +1,5 @@
 from fastapi import FastAPI
 from httpcore import Request
-from lark.grammar import NonTerminal
-
 from src.api.models import ContinueTraining
 from src.api.controller import continue_train_controller, list_models_controller
 from src.api.models import PredictionInput
