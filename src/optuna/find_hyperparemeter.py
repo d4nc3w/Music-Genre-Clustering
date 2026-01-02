@@ -7,13 +7,10 @@ from optuna.study import StudyDirection
 import os
 import sys
 
-try:
-    from src.model_utils.utils import FEATURES
-except ImportError:
-    FEATURES = [
-        "Beats Per Minute (BPM)", "Loudness (dB)", "Liveness",
-        "Valence", "Acousticness", "Speechiness"
-    ]
+FEATURES = [
+    "Beats Per Minute (BPM)", "Loudness (dB)", "Liveness",
+    "Valence", "Acousticness", "Speechiness"
+]
 
 def load_data():
     target_path = "data/Spotify-2000.csv"
