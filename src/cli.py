@@ -37,7 +37,7 @@ def optimize(
     """
     Run Optuna to find best hyperparameters.
     """
-    typer.echo(f"🧠 Starting Hyperparameter Tuning (Optuna)...")
+    typer.echo(f"Starting Hyperparameter Tuning (Optuna)...")
     
     storage_url = "sqlite:///music_clustering.db"
     
