@@ -1,5 +1,6 @@
 import pathlib
 import pandas as pd
+from pandas.core.common import random_state
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bouldin_score
@@ -9,7 +10,7 @@ import os
 FEATURES = ["Beats Per Minute (BPM)", "Loudness (dB)", "Liveness",
             "Valence", "Acousticness", "Speechiness"]
 
-def train_model(data: pd.DataFrame, model_directory_path: str, model_name: str):
+def train_model(data: pd.DataFrame, model_directory_path: str, model_name: str, best_parameters: dict | None):
     # Drop the 'Index' column as it is not useful
     if 'Index' in data.columns:
         data = data.drop('Index', axis=1)
@@ -20,6 +21,9 @@ def train_model(data: pd.DataFrame, model_directory_path: str, model_name: str):
     data_scaled = scaler.fit_transform(data_features)
     # Apply KMeans clustering
     kmeans = KMeans(n_clusters=10, random_state=42)
+    if best_parameters:
+        kmeans = KMeans(**best_parameters, random_state=42)
+
     labels = kmeans.fit_predict(data_scaled)
     quality_metrics = {
         "inertia": kmeans.inertia_,

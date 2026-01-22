@@ -1,7 +1,9 @@
+from http.client import responses
+
 from fastapi import FastAPI
 from httpcore import Request
 from src.api.models import ContinueTraining
-from src.api.controller import continue_train_controller, list_models_controller
+from src.api.controller import continue_train_controller, list_models_controller, get_best_parameters
 from src.api.models import PredictionInput
 from src.api.controller import predict_controller
 from fastapi.responses import JSONResponse
@@ -44,3 +46,7 @@ async def predict(input_data: PredictionInput):
 @app.get("/models", response_model=list[str])
 async def models():
     return list_models_controller()
+
+@app.get("/parameters")
+async def get_best_params():
+    return get_best_parameters()

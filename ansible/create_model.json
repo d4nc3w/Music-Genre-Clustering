@@ -34,5 +34,5 @@
         {"index":39,"title":"All My Life","artist":"Foo Fighters","top_genre":"alternative metal","year":2002,"beats_per_minute":168,"energy":60,"danceability":58,"loudness":-6,"liveness":48,"valence":65,"length":263,"acousticness":0,"speechiness":5,"popularity":72},
         {"index":40,"title":"De Weg","artist":"Guus Meeuwis","top_genre":"dutch pop","year":2005,"beats_per_minute":72,"energy":21,"danceability":46,"loudness":-11,"liveness":11,"valence":26,"length":266,"acousticness":91,"speechiness":3,"popularity":42}
     ],
-    "new_model_name": "new_model"
+    "new_model_name": "model"
 }
