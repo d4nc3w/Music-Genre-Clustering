@@ -1,0 +1,48 @@
+---
+- name: Testing working container
+  hosts: localhost
+  vars:
+    server_uri: "http://172.18.0.3:8080/"
+    create_model: "continue-train"
+    test_model: "predict"
+    get_models: "models"
+    set_parameters: "parameters"
+  tasks:
+    - name: Setup parameters
+      ansible.builtin.uri:
+        url: "{{ server_uri }}{{ set_parameters }}"
+        method: GET
+        return_content: yes
+        headers:
+          Content-Type: "application/json"
+        status_code: 200
+    - name: Create models
+      ansible.builtin.uri:
+        url: "{{ server_uri }}{{ create_model }}"
+        method: POST
+        return_content: yes
+        headers:
+          Content-Type: "application/json"
+        body_format: json
+        body: "{{ lookup('file', 'create_model.json') }}"
+        status_code: 200
+    - name: Get models
+      ansible.builtin.uri:
+        url: "{{ server_uri }}{{ get_models }}"
+        method: GET
+        return_content: yes
+        headers:
+          Content-Type: "application/json"
+        status_code: 200
+    - name: Test model
+      ansible.builtin.uri:
+        url: "{{ server_uri }}{{ test_model }}"
+        method: POST
+        return_content: yes
+        headers:
+          Content-Type: "application/json"
+        body_format: json
+        body: "{{ lookup('file', 'predict.json') }}"
+        status_code: 200
+
+

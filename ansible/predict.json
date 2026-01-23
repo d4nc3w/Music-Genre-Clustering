@@ -1,0 +1,7 @@
+{
+    "model_name": "new_model",
+    "input_data": [
+        {"index":8,"title":"Knights of Cydonia","artist":"Muse","top_genre":"modern rock","year":2006,"beats_per_minute":137,"energy":96,"danceability":37,"loudness":-5,"liveness":12,"valence":21,"length":366,"acousticness":0,"speechiness":14,"popularity":69},
+      {"index":14,"title":"I'm going home","artist":"Ten Years After","top_genre":"album rock","year":2005,"beats_per_minute":117,"energy":93,"danceability":38,"loudness":-2,"liveness":81,"valence":40,"length":639,"acousticness":18,"speechiness":10,"popularity":26}
+    ]
+}

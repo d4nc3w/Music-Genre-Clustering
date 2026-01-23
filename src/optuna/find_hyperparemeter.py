@@ -6,14 +6,18 @@ import sklearn.preprocessing
 from optuna.study import StudyDirection
 import os
 import sys
+from pathlib import Path
 
 FEATURES = [
     "Beats Per Minute (BPM)", "Loudness (dB)", "Liveness",
     "Valence", "Acousticness", "Speechiness"
 ]
 
+BASE_DIR = Path(__file__).resolve().parents[2]
+DATA_DIR = f"{BASE_DIR}/data"
+
 def load_data():
-    target_path = "data/Spotify-2000.csv"
+    target_path = f"{DATA_DIR}/Spotify-2000.csv"
     
     if not os.path.exists(target_path):
         if os.path.exists(target_path + ".dvc"):
