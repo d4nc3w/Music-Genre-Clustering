@@ -8,14 +8,6 @@
     get_models: "models"
     set_parameters: "parameters"
   tasks:
-    - name: Setup parameters
-      ansible.builtin.uri:
-        url: "{{ server_uri }}{{ set_parameters }}"
-        method: GET
-        return_content: yes
-        headers:
-          Content-Type: "application/json"
-        status_code: 200
     - name: Create models
       ansible.builtin.uri:
         url: "{{ server_uri }}{{ create_model }}"
