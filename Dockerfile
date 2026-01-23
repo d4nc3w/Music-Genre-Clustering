@@ -9,7 +9,6 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --no-install-project
 
 COPY models ./models
-COPY data ./data
 COPY src ./src
 
 RUN uv sync --frozen
